@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.li`
 	background-color: ${({ theme }) => theme['gray-500']};
 	border: 1px solid ${({ theme }) => theme['gray-400']};
 	border-radius: 8px;
@@ -54,7 +54,7 @@ export const TaskContent = styled.div`
 			background-color: ${({ theme }) => theme['gray-400']};
 		}
 
-		&:checked + label:before {
+		&:checked + label::before {
 			content: '';
 			box-sizing: border-box;
 			background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.43059 0.342123L4.09865 4.67406L1.61618 2.19159L0.780273 3.0275L4.09865 6.34587L9.26649 1.17803L8.43059 0.342123Z' fill='%23F2F2F2'/%3E%3C/svg%3E%0A");
@@ -67,7 +67,7 @@ export const TaskContent = styled.div`
 			transition: background-color 0.2s;
 		}
 
-		&:checked:hover + label:before {
+		&:checked:hover + label::before {
 			background-color: ${({ theme }) => theme.purple};
 		}
 
