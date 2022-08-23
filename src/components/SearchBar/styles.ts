@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.form`
 	display: flex;
 	gap: 0.5rem;
 	height: 3.375rem;
