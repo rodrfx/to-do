@@ -1,19 +1,50 @@
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import clipboardImage from '../../assets/Clipboard.png';
 import { Header } from '../../components/Header';
 import { SearchBar } from '../../components/SearchBar';
 import { TaskItem } from '../../components/TaskItem';
 import * as S from './styles';
+interface Task {
+	id: string;
+	title: string;
+	isCompleted: boolean;
+}
 
 export const Home = () => {
-	const [tasks, setTasks] = useState([]);
+	const [tasks, setTasks] = useState<Task[]>([]);
+
+	const handleNewTask = (taskTitle: string) => {
+		const newTasks = [
+			{ id: uuidv4(), title: taskTitle, isCompleted: false },
+			...tasks,
+		];
+		setTasks(newTasks);
+	};
+
+	const handleTaskCLick = (taskId: string) => {
+		const newTasks = tasks.map((task) => {
+			if (task.id === taskId) {
+				return { ...task, isCompleted: !task.isCompleted };
+			}
+			return task;
+		});
+
+		setTasks(newTasks);
+	};
+
+	const handleDeleteTaskClick = (taskId: string) => {
+		const newTasks = tasks.filter((task) => {
+			return task.id !== taskId;
+		});
+		setTasks(newTasks);
+	};
 
 	return (
 		<S.Container>
 			<Header />
-
 			<S.Content>
-				<SearchBar />
+				<SearchBar handleNewTask={handleNewTask} />
 				<S.TasksGrid>
 					<S.TasksBarInfo>
 						<div>
@@ -33,7 +64,18 @@ export const Home = () => {
 						</S.NoTasks>
 					) : (
 						<S.WithTasks>
-							<TaskItem />
+							<ul>
+								{tasks.map((task) => (
+									<TaskItem
+										key={task.id}
+										id={task.id}
+										title={task.title}
+										isCompleted={task.isCompleted}
+										onClickChangeIsCompleted={handleTaskCLick}
+										onClickDeleteTask={handleDeleteTaskClick}
+									/>
+								))}
+							</ul>
 						</S.WithTasks>
 					)}
 				</S.TasksGrid>

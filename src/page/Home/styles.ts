@@ -64,7 +64,9 @@ export const NoTasks = styled.main`
 `;
 
 export const WithTasks = styled.main`
-	display: flex;
-	flex-direction: column;
-	gap: 0.75rem;
+	ul {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
 `;
